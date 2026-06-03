@@ -149,7 +149,8 @@ impl FspCotMessage {
         args: &'a FmcBootArgs,
     ) -> Result<impl Init<Self> + 'a> {
         let hal = hal::fsp_hal(args.chipset).ok_or(ENOTSUPP)?;
-
+        // frts_vidmem_offset is measured from the end of FB, so FRTS sits at
+        // (end of FB) - frts_vidmem_offset.
         let frts_vidmem_offset = if !args.resume {
             Self::frts_vidmem_offset(hal, fb_layout)?
         } else {
