@@ -110,6 +110,9 @@ CONFIG_UBSAN                                    note<'{Asahi enablement config}'
 CONFIG_USB_XHCI_PCI_ASMEDIA                     policy<{'arm64': 'y'}>
 CONFIG_USB_XHCI_PCI_ASMEDIA                     note<'{Asahi enablement config}'>
 
+CONFIG_VIDEO_APPLE_AVD                          policy<{'arm64': 'm'}>
+CONFIG_VIDEO_APPLE_AVD                          note<'{Asahi enablement config}'>
+
 CONFIG_VIDEO_APPLE_ISP                          policy<{'arm64': 'm'}>
 CONFIG_VIDEO_APPLE_ISP                          note<'{Asahi enablement config}'>
 
