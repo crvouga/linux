@@ -50,9 +50,6 @@ CONFIG_ARM_APPLE_CPUIDLE                        note<'{Asahi enablement config}'
 CONFIG_BT_BRCMEXT                               policy<{'arm64': 'y'}>
 CONFIG_BT_BRCMEXT                               note<'{Asahi enablement config}'>
 
-CONFIG_CHARGER_MACSMC                           policy<{'arm64': 'm'}>
-CONFIG_CHARGER_MACSMC                           note<'{Asahi enablement config}'>
-
 CONFIG_DRM_APPLE                                policy<{'arm64': 'm'}>
 CONFIG_DRM_APPLE                                note<'{Asahi enablement config}'>
 
@@ -136,8 +133,10 @@ CONFIG_ARM64_VA_BITS_36                         policy<{'arm64': 'n'}>
 CONFIG_ARM64_VA_BITS_39                         policy<{'arm64': '-'}>
 CONFIG_ARM64_VA_BITS_47                         policy<{'arm64': 'n'}>
 CONFIG_ASM_MODVERSIONS                          policy<{'arm64': '-'}>
+CONFIG_AS_VERSION                               policy<{'arm64': '24700'}>
 CONFIG_BASIC_MODVERSIONS                        policy<{'arm64': '-'}>
 CONFIG_CC_HAS_UBSAN_BOUNDS_STRICT               policy<{'arm64': '-'}>
+CONFIG_CC_VERSION_TEXT                          policy<{'arm64': '"aarch64-linux-gnu-gcc (Ubuntu 15.3.0-4ubuntu1) 15.3.0"'}>
 CONFIG_CLK_QCM2290_GPUCC                        policy<{'arm64': 'n'}>
 CONFIG_COMMON_CLK_C3_PERIPHERALS                policy<{'arm64': 'y'}>
 CONFIG_DRM_DISPLAY_DP_TUNNEL                    policy<{'arm64': '-'}>
@@ -146,7 +145,7 @@ CONFIG_DRM_EXEC                                 policy<{'arm64': 'y'}>
 CONFIG_DRM_GPUSVM                               policy<{'arm64': '-'}>
 CONFIG_DRM_GPUVM                                policy<{'arm64': 'y'}>
 CONFIG_DRM_PANEL_HIMAX_HX83102                  policy<{'arm64': 'n'}>
-CONFIG_DRM_PANEL_ILITEK_ILI9806E                policy<{'arm64': 'n'}>
+CONFIG_DRM_PANEL_ILITEK_ILI9806E                policy<{'arm64': '-'}>
 CONFIG_DRM_PANEL_LINCOLNTECH_LCD197             policy<{'arm64': 'n'}>
 CONFIG_DRM_SCHED                                policy<{'arm64': 'y'}>
 CONFIG_DRM_STM_LVDS                             policy<{'arm64': 'n'}>
@@ -172,6 +171,7 @@ CONFIG_DRM_XE_USERPTR_INVAL_INJECT              policy<{'arm64': '-'}>
 CONFIG_DRM_XE_WERROR                            policy<{'arm64': '-'}>
 CONFIG_EC_LENOVO_YOGA_C630                      policy<{'arm64': 'n'}>
 CONFIG_EXTENDED_MODVERSIONS                     policy<{'arm64': '-'}>
+CONFIG_GCC_VERSION                              policy<{'arm64': '150300'}>
 CONFIG_GENDWARFKSYMS                            policy<{'arm64': '-'}>
 CONFIG_GENKSYMS                                 policy<{'arm64': '-'}>
 CONFIG_HAVE_PAGE_SIZE_16KB                      policy<{'arm64': 'y'}>
@@ -182,6 +182,7 @@ CONFIG_INTEL_MEI_TXE                            policy<{'arm64': '-'}>
 CONFIG_INTEL_MEI_VSC                            policy<{'arm64': '-'}>
 CONFIG_INTEL_MEI_VSC_HW                         policy<{'arm64': '-'}>
 CONFIG_INTEL_VSC                                policy<{'arm64': '-'}>
+CONFIG_LD_VERSION                               policy<{'arm64': '24700'}>
 CONFIG_MARVELL_GTI_WDT                          policy<{'arm64': 'y'}>
 CONFIG_MD_LINEAR                                policy<{'arm64': 'n'}>
 CONFIG_MESON_SECURE_PM_DOMAINS                  policy<{'arm64': '-'}>
@@ -197,6 +198,10 @@ CONFIG_PAGE_BLOCK_MAX_ORDER                     policy<{'arm64': '11'}>
 CONFIG_PAGE_SHIFT                               policy<{'arm64': '14'}>
 CONFIG_PAGE_SIZE_16KB                           policy<{'arm64': 'y'}>
 CONFIG_PCIE_APPLE                               policy<{'arm64': 'y'}>
+CONFIG_RUSTC_LLVM_MAJOR_VERSION                 policy<{'arm64': '22'}>
+CONFIG_RUSTC_LLVM_VERSION                       policy<{'arm64': '220106'}>
+CONFIG_RUSTC_VERSION                            policy<{'arm64': '109701'}>
+CONFIG_RUSTC_VERSION_TEXT                       policy<{'arm64': '"rustc 1.97.1 (8bab26f4f 2026-07-14) (built from a source tarball)"'}>
 CONFIG_RUST_APPLE_MAILBOX                       policy<{'arm64': 'y'}>
 CONFIG_RUST_APPLE_RTKIT                         policy<{'arm64': 'y'}>
 CONFIG_RUST_DRM_GEM_SHMEM_HELPER                policy<{'arm64': 'y'}>
@@ -209,6 +214,7 @@ CONFIG_SPI_HID_APPLE_CORE                       policy<{'arm64': 'm'}>
 CONFIG_TEE_STMM_EFI                             policy<{'arm64': 'n'}>
 CONFIG_TEST_UBSAN                               policy<{'arm64': '-'}>
 CONFIG_THP_SWAP                                 policy<{'arm64': '-'}>
+CONFIG_TYPEC_TPS6598X_CORE                      policy<{'arm64': 'm'}>
 CONFIG_UBSAN_ALIGNMENT                          policy<{'arm64': '-'}>
 CONFIG_UBSAN_BOOL                               policy<{'arm64': '-'}>
 CONFIG_UBSAN_BOUNDS                             policy<{'arm64': '-'}>
