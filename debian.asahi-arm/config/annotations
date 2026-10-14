@@ -104,6 +104,9 @@ CONFIG_SPI_HID_APPLE_OF                         note<'{Asahi enablement config}'
 CONFIG_SYSFB_SIMPLEFB                           policy<{'arm64': 'n'}>
 CONFIG_SYSFB_SIMPLEFB                           note<'{Asahi enablement config}'>
 
+CONFIG_TYPEC_SN201202X                          policy<{'arm64': 'm'}>
+CONFIG_TYPEC_SN201202X                          note<'{Asahi enablement config}'>
+
 CONFIG_UBSAN                                    policy<{'arm64': 'n'}>
 CONFIG_UBSAN                                    note<'{Asahi enablement config}'>
 
