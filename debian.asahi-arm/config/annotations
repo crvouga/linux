@@ -89,7 +89,7 @@ CONFIG_PHY_APPLE_ATC                            note<'{Asahi enablement config}'
 CONFIG_PHY_APPLE_DPTX                           policy<{'arm64': 'm'}>
 CONFIG_PHY_APPLE_DPTX                           note<'{Asahi enablement config}'>
 
-CONFIG_RESET_APPLE_CIO                          policy<{'arm64': 'm'}> 
+CONFIG_RESET_APPLE_CIO                          policy<{'arm64': 'm'}>
 CONFIG_RESET_APPLE_CIO                          note<'{Asahi enablement config}'>
 
 CONFIG_SND_SOC_APPLE_AOP_AUDIO                  policy<{'arm64': 'm'}>
@@ -110,7 +110,7 @@ CONFIG_TYPEC_SN201202X                          note<'{Asahi enablement config}'
 CONFIG_UBSAN                                    policy<{'arm64': 'n'}>
 CONFIG_UBSAN                                    note<'{Asahi enablement config}'>
 
-CONFIG_USB4_APPLE_SOC                           policy<{'arm64': 'm'}> 
+CONFIG_USB4_APPLE_SOC                           policy<{'arm64': 'm'}>
 CONFIG_USB4_APPLE_SOC                           note<'{Asahi enablement config}'>
 
 CONFIG_USB_XHCI_PCI_ASMEDIA                     policy<{'arm64': 'y'}>
@@ -125,6 +125,7 @@ CONFIG_VIDEO_APPLE_ISP                          note<'{Asahi enablement config}'
 
 # ---- Annotations without notes ----
 
+CONFIG_AMLOGIC_THERMAL                          policy<{'arm64': '-'}>
 CONFIG_ARCH_FORCE_MAX_ORDER                     policy<{'arm64': '11'}>
 CONFIG_ARCH_MMAP_RND_BITS_MAX                   policy<{'arm64': '31'}>
 CONFIG_ARCH_MMAP_RND_BITS_MIN                   policy<{'arm64': '16'}>
@@ -135,16 +136,20 @@ CONFIG_ARM64_4K_PAGES                           policy<{'arm64': 'n'}>
 CONFIG_ARM64_ACTLR_STATE                        policy<{'arm64': 'y'}>
 CONFIG_ARM64_CONT_PMD_SHIFT                     policy<{'arm64': '5'}>
 CONFIG_ARM64_CONT_PTE_SHIFT                     policy<{'arm64': '7'}>
+CONFIG_ARM64_ERRATUM_3821522                    policy<{'arm64': 'y'}>
 CONFIG_ARM64_VA_BITS_36                         policy<{'arm64': 'n'}>
 CONFIG_ARM64_VA_BITS_39                         policy<{'arm64': '-'}>
 CONFIG_ARM64_VA_BITS_47                         policy<{'arm64': 'n'}>
+CONFIG_ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT     policy<{'arm64': 'y'}>
 CONFIG_ASM_MODVERSIONS                          policy<{'arm64': '-'}>
-CONFIG_AS_VERSION                               policy<{'arm64': '24700'}>
 CONFIG_BASIC_MODVERSIONS                        policy<{'arm64': '-'}>
 CONFIG_CC_HAS_UBSAN_BOUNDS_STRICT               policy<{'arm64': '-'}>
+CONFIG_CC_OPT_INLINE_MEMSET                     policy<{'arm64': '"-finline-stringops=memset"'}>
 CONFIG_CC_VERSION_TEXT                          policy<{'arm64': '"aarch64-linux-gnu-gcc (Ubuntu 15.3.0-4ubuntu1) 15.3.0"'}>
 CONFIG_CLK_QCM2290_GPUCC                        policy<{'arm64': 'n'}>
 CONFIG_COMMON_CLK_C3_PERIPHERALS                policy<{'arm64': 'y'}>
+CONFIG_CRYPTO_DEV_SUN8I_CE_PRNG                 policy<{'arm64': '-'}>
+CONFIG_CRYPTO_DEV_SUN8I_SS_PRNG                 policy<{'arm64': '-'}>
 CONFIG_DRM_DISPLAY_DP_TUNNEL                    policy<{'arm64': '-'}>
 CONFIG_DRM_EFIDRM                               policy<{'arm64': 'n'}>
 CONFIG_DRM_EXEC                                 policy<{'arm64': 'y'}>
@@ -188,7 +193,6 @@ CONFIG_INTEL_MEI_TXE                            policy<{'arm64': '-'}>
 CONFIG_INTEL_MEI_VSC                            policy<{'arm64': '-'}>
 CONFIG_INTEL_MEI_VSC_HW                         policy<{'arm64': '-'}>
 CONFIG_INTEL_VSC                                policy<{'arm64': '-'}>
-CONFIG_LD_VERSION                               policy<{'arm64': '24700'}>
 CONFIG_MARVELL_GTI_WDT                          policy<{'arm64': 'y'}>
 CONFIG_MD_LINEAR                                policy<{'arm64': 'n'}>
 CONFIG_MESON_SECURE_PM_DOMAINS                  policy<{'arm64': '-'}>
@@ -210,7 +214,6 @@ CONFIG_RUSTC_VERSION                            policy<{'arm64': '109701'}>
 CONFIG_RUSTC_VERSION_TEXT                       policy<{'arm64': '"rustc 1.97.1 (8bab26f4f 2026-07-14) (built from a source tarball)"'}>
 CONFIG_RUST_APPLE_MAILBOX                       policy<{'arm64': 'y'}>
 CONFIG_RUST_APPLE_RTKIT                         policy<{'arm64': 'y'}>
-CONFIG_RUST_DRM_GEM_SHMEM_HELPER                policy<{'arm64': 'y'}>
 CONFIG_RUST_DRM_GPUVM                           policy<{'arm64': 'y'}>
 CONFIG_RUST_DRM_SCHED                           policy<{'arm64': 'y'}>
 CONFIG_SENSORS_MAX17616                         policy<{'arm64': 'n'}>
