@@ -89,6 +89,9 @@ CONFIG_PHY_APPLE_ATC                            note<'{Asahi enablement config}'
 CONFIG_PHY_APPLE_DPTX                           policy<{'arm64': 'm'}>
 CONFIG_PHY_APPLE_DPTX                           note<'{Asahi enablement config}'>
 
+CONFIG_RESET_APPLE_CIO                          policy<{'arm64': 'm'}> 
+CONFIG_RESET_APPLE_CIO                          note<'{Asahi enablement config}'>
+
 CONFIG_SND_SOC_APPLE_AOP_AUDIO                  policy<{'arm64': 'm'}>
 CONFIG_SND_SOC_APPLE_AOP_AUDIO                  note<'{Asahi enablement config}'>
 
@@ -106,6 +109,9 @@ CONFIG_TYPEC_SN201202X                          note<'{Asahi enablement config}'
 
 CONFIG_UBSAN                                    policy<{'arm64': 'n'}>
 CONFIG_UBSAN                                    note<'{Asahi enablement config}'>
+
+CONFIG_USB4_APPLE_SOC                           policy<{'arm64': 'm'}> 
+CONFIG_USB4_APPLE_SOC                           note<'{Asahi enablement config}'>
 
 CONFIG_USB_XHCI_PCI_ASMEDIA                     policy<{'arm64': 'y'}>
 CONFIG_USB_XHCI_PCI_ASMEDIA                     note<'{Asahi enablement config}'>
