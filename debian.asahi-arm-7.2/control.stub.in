@@ -64,7 +64,7 @@ Build-Depends-Indep:
  python3-docutils <!stage1>,
  sharutils <!stage1>,
  xmlto <!stage1>,
-Vcs-Git: git://git.launchpad.net/~ubuntu-asahi/+git/linux-asahi-arm -b asahi-arm-7.0
+Vcs-Git: git://git.launchpad.net/~ubuntu-asahi/ubuntu/+source/linux-asahi-arm/+git/resolute -b asahi-arm-7.2
 XS-Testsuite: autopkgtest
 
 Package: SRCPKGNAME-headers-PKGVER-ABINUM
