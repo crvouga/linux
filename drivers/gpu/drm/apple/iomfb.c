@@ -16,6 +16,7 @@
 #include <linux/slab.h>
 #include <linux/soc/apple/rtkit.h>
 
+#include <drm/drm_atomic.h>
 #include <drm/drm_edid.h>
 #include <drm/drm_fb_dma_helper.h>
 #include <drm/drm_fourcc.h>
@@ -224,8 +225,68 @@ void dcp_ack(struct apple_dcp *dcp, enum dcp_context_id context)
 			 dcpep_ack(context));
 }
 
+/* Restore a configuration which userspace retained across a disconnect. */
+static int dcp_restore_mode(struct apple_dcp *dcp)
+{
+	struct drm_connector *connector = &dcp->connector->base;
+	struct drm_modeset_acquire_ctx ctx;
+	struct drm_atomic_commit *commit;
+	struct drm_connector_state *connector_state;
+	struct drm_crtc_state *crtc_state;
+	int ret = 0;
+
+	commit = drm_atomic_commit_alloc(connector->dev);
+	if (!commit)
+		return -ENOMEM;
+
+	drm_modeset_acquire_init(&ctx, 0);
+	commit->acquire_ctx = &ctx;
+retry:
+	connector_state = drm_atomic_get_connector_state(commit, connector);
+	if (IS_ERR(connector_state)) {
+		ret = PTR_ERR(connector_state);
+		goto out;
+	}
+
+	if (!connector_state->crtc)
+		goto out;
+
+	crtc_state = drm_atomic_get_crtc_state(commit, connector_state->crtc);
+	if (IS_ERR(crtc_state)) {
+		ret = PTR_ERR(crtc_state);
+		goto out;
+	}
+
+	/* Recheck after acquiring the locks used by userspace modesets. */
+	if (!crtc_state->active || !READ_ONCE(dcp->connector->connected) ||
+	    READ_ONCE(dcp->valid_mode) || dcp->crashed)
+		goto out;
+
+	/*
+	 * A short disconnect may be hidden by userspace hotplug debouncing,
+	 * but DCP has lost its mode. Use a full atomic modeset, including the
+	 * affected planes added by the atomic helpers, to restore scanout.
+	 */
+	crtc_state->mode_changed = true;
+	connector_state->link_status = DRM_MODE_LINK_STATUS_GOOD;
+	ret = drm_atomic_commit(commit);
+out:
+	if (ret == -EDEADLK) {
+		drm_atomic_commit_clear(commit);
+		ret = drm_modeset_backoff(&ctx);
+		if (!ret)
+			goto retry;
+	}
+
+	drm_atomic_commit_put(commit);
+	drm_modeset_drop_locks(&ctx);
+	drm_modeset_acquire_fini(&ctx);
+
+	return ret;
+}
+
 /*
- * Helper to send a DRM hotplug event. The DCP is accessed from a single
+ * Restore the mode and send a DRM hotplug event. DCP is accessed from a single
  * (RTKit) thread. To handle hotplug callbacks, we need to call
  * drm_kms_helper_hotplug_event, which does an atomic commit (via DCP) and
  * waits for vblank (a DCP callback). That means we deadlock if we call from
@@ -235,6 +296,7 @@ void dcp_hotplug(struct work_struct *work)
 {
 	struct apple_connector *connector;
 	struct apple_dcp *dcp;
+	int ret;
 
 	connector = container_of(work, struct apple_connector, hotplug_wq);
 
@@ -247,14 +309,16 @@ void dcp_hotplug(struct work_struct *work)
 		connector->drm_edid = NULL;
 	}
 
-	/*
-	 * DCP defers link training until we set a display mode. But we set
-	 * display modes from atomic_flush, so userspace needs to trigger a
-	 * flush, or the CRTC gets no signal.
-	 */
-	if (connector->base.state && !dcp->valid_mode && connector->connected)
-		drm_connector_set_link_status_property(&connector->base,
-						       DRM_MODE_LINK_STATUS_BAD);
+	if (connector->base.state && !dcp->valid_mode && connector->connected) {
+		ret = dcp_restore_mode(dcp);
+		if (ret)
+			dev_err(dcp->dev, "Failed to restore display mode: %d\n", ret);
+
+		/* Userspace may need to select a different mode on a new sink. */
+		if (!dcp->valid_mode && connector->connected)
+			drm_connector_set_link_status_property(&connector->base,
+							       DRM_MODE_LINK_STATUS_BAD);
+	}
 
 	drm_kms_helper_connector_hotplug_event(&connector->base);
 }

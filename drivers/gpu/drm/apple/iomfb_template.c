@@ -1183,7 +1183,8 @@ static void do_swap(struct apple_dcp *dcp, void *data, void *cookie)
 {
 	struct dcp_swap_start_req start_req = { 0 };
 
-	if (dcp->connector && dcp->connector->connected)
+	/* DCP cannot complete a swap until its mode has been restored. */
+	if (dcp->connector && dcp->connector->connected && dcp->valid_mode)
 		dcp_swap_start(dcp, false, &start_req, dcp_swap_started, NULL);
 	else
 		dcp_drm_crtc_vblank(dcp->crtc);
