@@ -990,6 +990,9 @@ static int dcp_comp_bind(struct device *dev, struct device *main, void *data)
 	u32 cpu_ctrl;
 	int ret;
 
+	/* A rebind may fail before a new DRM connector is linked. */
+	dcp->connector = NULL;
+
 	ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(42));
 	if (ret)
 		return ret;
@@ -1107,6 +1110,10 @@ static void dcp_comp_unbind(struct device *dev, struct device *main, void *data)
 
 	if (!dcp)
 		return;
+
+	/* No hotplug modeset may outlive the firmware services it uses. */
+	if (dcp->connector)
+		disable_work_sync(&dcp->connector->hotplug_wq);
 
 	if (dcp->hdmi_hpd_irq)
 		disable_irq(dcp->hdmi_hpd_irq);
@@ -1320,6 +1327,9 @@ static int dcp_platform_suspend(struct device *dev)
 {
 	struct apple_dcp *dcp = dev_get_drvdata(dev);
 
+	if (dcp->connector)
+		disable_work_sync(&dcp->connector->hotplug_wq);
+
 	if (dcp->avep)
 		av_service_disconnect(dcp);
 
@@ -1347,6 +1357,12 @@ static int dcp_platform_resume(struct device *dev)
 
 	if (dcp->avep)
 		av_service_connect(dcp);
+
+	if (dcp->connector) {
+		enable_work(&dcp->connector->hotplug_wq);
+		/* Recheck any hotplug changes received while work was disabled. */
+		schedule_work(&dcp->connector->hotplug_wq);
+	}
 
 	return 0;
 }
